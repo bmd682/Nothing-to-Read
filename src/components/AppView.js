@@ -76,28 +76,6 @@ export const ApplicationViews = (props) => {
                 }
             } />
 
-            <EmployeeProvider>
-                <AnimalProvider>
-                    <LocationProvider>
-                        <Route path="/employees/create" render={(props) => {
-                            return <EmployeeForm {...props} />
-                        }} />
-
-
-                        <Route path="/employees/:employeeId(\d+)" render={
-                            props => <EmployeeDetail {...props} />
-                        } />
-                    </LocationProvider>
-                </AnimalProvider>
-            </EmployeeProvider>
-
-            <EmployeeProvider>
-                <LocationProvider>
-                    <Route exact path="/employees" render={(props) => {
-                        return <EmployeeList history={props.history} />
-                    }} />
-                </LocationProvider>
-            </EmployeeProvider>
         </>
     )
 }
