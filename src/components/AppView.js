@@ -7,10 +7,7 @@ import { AnimalList } from "./animal/AnimalList"
 import { CustomerProvider } from "./customer/CustomerProvider.js"
 import { CustomerList } from "./customer/CustomerList.js"
 import { EmployeeProvider } from "./employee/EmployeeProvider";
-import { EmployeeList } from "./employee/EmployeeList";
-import { EmployeeForm } from "./employee/EmployeeForm.js"
 import { AnimalForm } from "./animal/AnimalForm.js"
-import { EmployeeDetail } from "./employee/EmployeeDetail.js"
 import { LocationDetail } from "./location/LocationDetail.js"
 import { AnimalDetails } from "./animal/AnimalDetail.js"
 import { AnimalSearch } from "./animal/AnimalSearch.js"
