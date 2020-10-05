@@ -1,0 +1,23 @@
+.bookContainer {
+    margin: 0 5rem;
+}
+
+.books {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.book {
+      flex-basis: 20%;
+      margin: 2rem 5em;
+      padding: 1em;
+      border: 1px solid rgb(44, 32, 218);
+}
+
+.books__search {
+    width: 25rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}

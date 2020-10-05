@@ -1,131 +1,133 @@
 import React, { useContext, useState, useEffect } from "react"
-import { AnimalContext } from "./AnimalProvider"
-import { LocationContext } from "../location/LocationProvider"
+import { BookContext } from "./BookProvider"
+import { LocationContext } from "./BookStatus"
 
 
-export const AnimalForm = (props) => {
+export const BookForm = (props) => {
     // Use the required context providers for data
     const { locations, getLocations } = useContext(LocationContext)
-    const { addAnimal, animals, updateAnimal, getAnimals } = useContext(AnimalContext)
+    const { addBook, books, updateBook, getBooks } = useContext(BookContext)
 
     // Component state
-    const [animal, setAnimal] = useState({})
+    const [book, setBook] = useState({})
 
     // Is there a a URL parameter??
-    const editMode = props.match.params.hasOwnProperty("animalId")  // true or false
+    const editMode = props.match.params.hasOwnProperty("bookId")  // true or false
 
     const handleControlledInputChange = (event) => {
         /*
             When changing a state object or array, always create a new one
             and change state instead of modifying current one
         */
-        const newAnimal = Object.assign({}, animal)          // Create copy
-        newAnimal[event.target.name] = event.target.value    // Modify copy
-        setAnimal(newAnimal)                                 // Set copy as new state
+        const newBook = Object.assign({}, book)          // Create copy
+        newBook[event.target.name] = event.target.value    // Modify copy
+        setBook(newBook)                                 // Set copy as new state
     }
 
     /*
         If there is a URL parameter, then the user has chosen to
-        edit an animal.
+        edit an book.
             1. Get the value of the URL parameter.
-            2. Use that `id` to find the animal.
+            2. Use that `id` to find the book.
             3. Update component state variable.
     */
-    const getAnimalInEditMode = () => {
+    const getBookInEditMode = () => {
         if (editMode) {
-            const animalId = parseInt(props.match.params.animalId)
-            const selectedAnimal = animals.find(a => a.id === animalId) || {}
-            setAnimal(selectedAnimal)
+            const bookId = parseInt(props.match.params.bookId)
+            const selectedBook = books.find(a => a.id === bookId) || {}
+            setBook(selectedBook)
         }
     }
 
-    // Get animals from API when component initializes
+    // Get books from API when component initializes
     useEffect(() => {
-        getAnimals()
+        getBooks()
         getLocations()
     }, [])
 
-    // Once provider state is updated, determine the animal (if edit)
+    // Once provider state is updated, determine the book (if edit)
     useEffect(() => {
-        getAnimalInEditMode()
-    }, [animals])
+        getBookInEditMode()
+    }, [books])
 
 
-    const constructNewAnimal = () => {
-        const locationId = parseInt(animal.locationId)
-
+    const constructNewBook = () => {
+        // const locationId = parseInt(book.locationId)
+        const locationId = 1
         if (locationId === 0) {
             window.alert("Please select a location")
         } else {
             if (editMode) {
                 // PUT
-                updateAnimal({
-                    id: animal.id,
-                    name: animal.name,
-                    breed: animal.breed,
+                updateBook({
+                    id: book.id,
+                    name: book.name,
+                    breed: book.breed,
                     locationId: locationId,
-                    treatment: animal.treatment,
-                    customerId: parseInt(localStorage.getItem("kennel_customer"))
+                    treatment: book.treatment,
+                    readerId: parseInt(localStorage.getItem("book_reader"))
                 })
-                    .then(() => props.history.push("/animals"))
+                    .then(() => props.history.push("/books"))
             } else {
                 // POST
-                addAnimal({
-                    name: animal.name,
-                    breed: animal.breed,
+                addBook({
+                    name: book.name,
+                    breed: book.breed,
                     locationId: locationId,
-                    treatment: animal.treatment,
-                    customerId: parseInt(localStorage.getItem("kennel_customer"))
+                    treatment: book.treatment,
+                    readerId: parseInt(localStorage.getItem("book_reader"))
                 })
-                    .then(() => props.history.push("/animals"))
+                    .then(() => props.history.push("/books"))
             }
         }
     }
 
     return (
-        <form className="animalForm">
-            <h2 className="animalForm__title">{editMode ? "Update Animal" : "Admit Animal"}</h2>
+        <form className="bookForm">
+            <h2 className="bookForm__title">{editMode ? "Update Book" : "Add Book"}</h2>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="name">Animal name: </label>
+                    <label htmlFor="name">Book name: </label>
                     <input type="text" name="name" required autoFocus className="form-control"
-                        placeholder="Animal name"
-                        defaultValue={animal.name}
+                        placeholder="Book name"
+                        defaultValue={book.name}
                         onChange={handleControlledInputChange}
                     />
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="breed">Animal breed: </label>
+                    <label htmlFor="breed">Author: </label>
                     <input type="text" name="breed" required className="form-control"
-                        placeholder="Animal breed"
-                        defaultValue={animal.breed}
+                        placeholder="Book Author"
+                        defaultValue={book.breed}
                         onChange={handleControlledInputChange}
                     />
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="locationId">Location: </label>
+                    <label htmlFor="locationId">Read Status: </label>
                     <select name="locationId" className="form-control"
-                        value={animal.locationId}
+                        value={book.locationId}
                         onChange={handleControlledInputChange}>
 
-                        <option value="0">Select a location</option>
-                        {locations.map(e => (
+                        <option value="1">Read Later</option>
+                        <option value="2">Currently Reading</option>
+                        <option value="3">Finished Reading</option>
+                        {/* {locations.map(e => (
                             <option key={e.id} value={e.id}>
                                 {e.name}
                             </option>
-                        ))}
+                        ))} */}
                     </select>
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="treatment">Treatments: </label>
+                    <label htmlFor="treatment">Synopsis: </label>
                     <textarea type="text" name="treatment" className="form-control"
-                        value={animal.treatment}
+                        value={book.treatment}
                         onChange={handleControlledInputChange}>
                     </textarea>
                 </div>
@@ -133,10 +135,10 @@ export const AnimalForm = (props) => {
             <button type="submit"
                 onClick={evt => {
                     evt.preventDefault()
-                    constructNewAnimal()
+                    constructNewBook()
                 }}
                 className="btn btn-primary">
-                {editMode ? "Save Updates" : "Make Reservation"}
+                {editMode ? "Save Updates" : "Add Book"}
             </button>
         </form>
     )

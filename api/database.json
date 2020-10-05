@@ -1,0 +1,84 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "name": "Stormlight Archive",
+      "breed": "Sanderson",
+      "locationId": 1,
+      "treatment": "Magic Heist",
+      "readerId": 3
+    },
+    {
+      "id": 2,
+      "name": "Wheel of Time",
+      "breed": "Sanderson",
+      "locationId": 1,
+      "treatment": "Fiction story about knights",
+      "readerId": 3
+    },
+    {
+      "name": "Harry Potter",
+      "breed": "JK Rowling",
+      "locationId": 1,
+      "readerId": 2,
+      "id": 3
+    },
+    {
+      "name": "asdfasdf",
+      "breed": "asdrf",
+      "locationId": 1,
+      "treatment": "asdfasfd",
+      "readerId": 3,
+      "id": 4
+    },
+    {
+      "name": "aaaa",
+      "breed": "bbbb",
+      "locationId": 3,
+      "readerId": 3,
+      "id": 5
+    },
+    {
+      "id": 6,
+      "name": "Bible",
+      "breed": "God",
+      "locationId": 1,
+      "treatment": "Long holy book",
+      "readerId": 3
+    }
+  ],
+  "readers": [
+    {
+      "id": 1,
+      "email": "aa@aa.com",
+      "password": "1",
+      "name": "aa"
+    },
+    {
+      "email": "bd@bd.com",
+      "password": "1",
+      "name": "BD BD",
+      "id": 2
+    },
+    {
+      "email": "1@1.com",
+      "password": "1",
+      "name": "1 1",
+      "id": 3
+    }
+  ],
+  "locations": [
+    {
+      "id": 1,
+      "name": "Read Later"
+    },
+    {
+      "id": 2,
+      "name": "Currently Reading"
+    },
+    {
+      "id": 3,
+      "name": "Finished"
+    }
+  ]
+}

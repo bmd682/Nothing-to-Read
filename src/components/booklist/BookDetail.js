@@ -1,31 +1,30 @@
 import React, { useContext, useEffect, useState } from "react"
-import { AnimalContext } from "./AnimalProvider"
-import "./Animals.css"
+import { BookContext } from "./BookProvider"
+import "./Books.css"
 
-export const AnimalDetails = (props) => {
-    const { releaseAnimal, getAnimalById } = useContext(AnimalContext)
+export const BookDetails = (props) => {
+    const { releaseBook, getBookById } = useContext(BookContext)
 
-    const [animal, setAnimal] = useState({ location: {}, customer: {} })
+    const [book, setBook] = useState({location: {}})
 
     useEffect(() => {
-        const animalId = parseInt(props.match.params.animalId)
-        getAnimalById(animalId)
-            .then(setAnimal)
+        const bookId = parseInt(props.match.params.bookId)
+        getBookById(bookId)
+            .then(setBook)
     }, [])
 
     return (
-        <section className="animal">
-            <h3 className="animal__name">{animal.name}</h3>
-            <div className="animal__breed">{animal.breed}</div>
-            <div className="animal__location">Location: {animal.location.name}</div>
-            <div className="animal__owner">Customer: {animal.customer.name}</div>
-            <div className="animal__treatment">Treatment: {animal.treatment}</div>
+        <section className="book">
+            <h3 className="book__name">{book.name}</h3>
+            <div className="book__breed">Author: {book.breed}</div>
+            <div className="book__status">Status: {book.location.name}</div>
+            <div className="book__treatment">Synopsis: {book.treatment}</div>
 
-            <button onClick={() => releaseAnimal(animal.id).then(() => props.history.push("/animals"))} >Release Animal</button>
+            <button onClick={() => releaseBook(book.id).then(() => props.history.push("/books"))} >Delete Book</button>
 
             <button onClick={() => {
-                props.history.push(`/animals/edit/${animal.id}`)
-            }}>Edit</button>
+                props.history.push(`/books/edit/${book.id}`)
+            }}>Edit Entry</button>
         </section>
     )
 }
