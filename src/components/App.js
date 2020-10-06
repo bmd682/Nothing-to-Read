@@ -4,12 +4,12 @@ import { ApplicationViews } from "./ApplicationViews"
 import { NavBar } from "./nav/NavBar"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
-import "./Kennel.css"
+import "./App.css"
 
-export const Kennel = () => (
+export const App = () => (
     <>
         <Route render={() => {
-            if (localStorage.getItem("kennel_customer")) {
+            if (localStorage.getItem("book_reader")) {
                 return (
                     <>
                         <Route render={props => <NavBar {...props} />} />

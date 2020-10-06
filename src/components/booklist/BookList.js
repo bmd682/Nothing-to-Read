@@ -1,39 +1,39 @@
 import React, { useState, useContext, useEffect } from "react"
-import { AnimalContext } from "./AnimalProvider"
-import Animal from "./Animal"
-import "./Animals.css"
+import { BookContext } from "./BookProvider"
+import Book from "./Book"
+import "./Books.css"
 
-export const AnimalList = ({ history }) => {
-    const { getAnimals, animals, searchTerms } = useContext(AnimalContext)
+export const BookList = ({ history }) => {
+    const { getBooks, books, searchTerms } = useContext(BookContext)
 
-    const [filteredAnimals, setFiltered] = useState([])
+    const [filteredBooks, setFiltered] = useState([])
 
-    // Initialization effect hook -> Go get animal data
+    // Initialization effect hook -> Go get book data
     useEffect(() => {
-        getAnimals()
+        getBooks()
     }, [])
 
     useEffect(() => {
-        const matchingAnimals = animals.filter(animal => animal.name.toLowerCase().includes(searchTerms.toLowerCase()))
-        setFiltered(matchingAnimals)
+        const matchingBooks = books.filter(book => book.name.toLowerCase().includes(searchTerms.toLowerCase()))
+        setFiltered(matchingBooks)
     }, [searchTerms])
 
 
     useEffect(() => {
-        setFiltered(animals)
-    }, [animals])
+        setFiltered(books)
+    }, [books])
 
     return (
-        <main className="animalContainer">
-            <h1>Animals</h1>
+        <main className="bookContainer">
+            <h1>Books</h1>
 
-            <button onClick={() => history.push("/animals/create")}>
-                Make Reservation
+            <button onClick={() => history.push("/books/create")}>
+                Add Book
             </button>
-            <div className="animals">
+            <div className="books">
                 {
-                    filteredAnimals.map(animal => {
-                        return <Animal key={animal.id} animal={animal} />
+                    filteredBooks.map(book => {
+                        return <Book key={book.id} book={book} />
                     })
                 }
             </div>

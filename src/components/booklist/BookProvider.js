@@ -1,57 +1,57 @@
 import React, { useState } from "react"
 
-export const AnimalContext = React.createContext()
+export const BookContext = React.createContext()
 
-export const AnimalProvider = (props) => {
-    const [animals, setAnimals] = useState([])
+export const BookProvider = (props) => {
+    const [books, setBooks] = useState([])
     const [searchTerms, setTerms] = useState("")
 
-    const getAnimals = () => {
-        return fetch("http://localhost:8088/animals")
+    const getBooks = () => {
+        return fetch("http://localhost:8088/books")
             .then(res => res.json())
-            .then(setAnimals)
+            .then(setBooks)
     }
 
-    const getAnimalById = (id) => {
-        return fetch(`http://localhost:8088/animals/${id}?_expand=location&_expand=customer`)
+    const getBookById = (id) => {
+        return fetch(`http://localhost:8088/books/${id}?_expand=location`)
             .then(res => res.json())
     }
 
-    const addAnimal = animal => {
-        return fetch("http://localhost:8088/animals", {
+    const addBook = book => {
+        return fetch("http://localhost:8088/books", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(animal)
+            body: JSON.stringify(book)
         })
-            .then(getAnimals)
+            .then(getBooks)
     }
 
-    const updateAnimal = animal => {
-        return fetch(`http://localhost:8088/animals/${animal.id}`, {
+    const updateBook = book => {
+        return fetch(`http://localhost:8088/books/${book.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(animal)
+            body: JSON.stringify(book)
         })
-            .then(getAnimals)
+            .then(getBooks)
     }
 
-    const releaseAnimal = (animalId) => {
-        return fetch(`http://localhost:8088/animals/${animalId}`, {
+    const releaseBook = (bookId) => {
+        return fetch(`http://localhost:8088/books/${bookId}`, {
             method: "DELETE"
         })
-            .then(getAnimals)
+            .then(getBooks)
     }
 
     return (
-        <AnimalContext.Provider value={{
-            animals, addAnimal, getAnimals, getAnimalById,
-            searchTerms, setTerms, releaseAnimal, updateAnimal
+        <BookContext.Provider value={{
+            books, addBook, getBooks, getBookById,
+            searchTerms, setTerms, releaseBook, updateBook
         }}>
             {props.children}
-        </AnimalContext.Provider>
+        </BookContext.Provider>
     )
 }

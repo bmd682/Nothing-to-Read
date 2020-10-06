@@ -1,13 +1,13 @@
 import React, { useContext } from "react"
-import { AnimalContext } from "./AnimalProvider"
+import { BookContext } from "./BookProvider"
 
-export const AnimalSearch = () => {
-    const { setTerms } = useContext(AnimalContext)
+export const BookSearch = () => {
+    const { setTerms } = useContext(BookContext)
 
     return (
         <>
-            <div>Search for an animal</div>
-            <input type="text"
+            <div>Search for a book</div>
+            <input type="text" className="books__search"
                 onChange={
                     (changeEvent) => {
                         setTerms(changeEvent.target.value)
